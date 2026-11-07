@@ -8,16 +8,17 @@
 <style>
 :root{--plum:#70483D;--plum2:#875C4D;--sand:#F1E4D6;--cream:#FCF8F1;--ink:#44352F;--muted:#7D6A5E;--line:#E8D9C9}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--cream);color:var(--ink);font-family:"IBM Plex Sans Arabic",sans-serif;display:grid;place-items:center;padding:22px}.card{width:min(100%,520px);background:#fff;border:1px solid var(--line);border-radius:23px;padding:clamp(22px,5vw,36px);box-shadow:0 22px 70px #70483D12}.mark{width:54px;height:54px;border-radius:17px;background:var(--sand);color:var(--plum);display:grid;place-items:center;margin:0 auto 15px;font:700 20px Alexandria}.brand{text-align:center;color:var(--plum);font:700 12px Alexandria}.brand small{display:block;font:12px "IBM Plex Sans Arabic";color:var(--muted);margin-top:4px}.eyebrow{text-align:center;color:var(--plum2);font-size:12px;font-weight:700;margin-top:20px}h1{font:700 25px/1.5 Alexandria;color:var(--plum);text-align:center;margin:8px 0}p{color:var(--muted);font-size:13px;line-height:1.9;text-align:center}.field{display:flex;flex-direction:column;gap:6px;text-align:right;margin:13px 0}.field label{font-size:12px;font-weight:600}.field input{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;background:#fffdfa;color:var(--ink);font:14px "IBM Plex Sans Arabic";outline:none}.field input:focus{border-color:var(--plum2);box-shadow:0 0 0 3px #F1E4D6}.check{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:var(--muted);line-height:1.8;margin:14px 0}.check input{margin-top:5px;accent-color:var(--plum)}.btn{width:100%;border:1px solid var(--plum);background:var(--plum);color:#fff;padding:12px 18px;border-radius:11px;font:700 13px "IBM Plex Sans Arabic";cursor:pointer;margin-top:8px}.btn:disabled{opacity:.55;cursor:wait}.btn.secondary{background:transparent;color:var(--plum)}.links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:12px}.links a{color:var(--plum);text-decoration:none}.notice{display:none;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#FBF5ED;color:var(--plum);font-size:12px;line-height:1.8;margin:16px 0;text-align:right;overflow-wrap:anywhere}.notice.error{background:#FFF2F0;border-color:#E9C8C3;color:#8A3931}.notice.success{background:#F0F6EF;border-color:#D4E4D1;color:#365B3D}.muted{font-size:11px;margin-top:20px}.hidden{display:none!important}.userbox{background:#FBF5ED;border:1px solid var(--line);border-radius:13px;padding:14px;text-align:center;overflow-wrap:anywhere;margin:18px 0}.userbox strong{color:var(--plum);font-size:13px}
-</style></head>
+.password-wrap{position:relative;display:flex;align-items:center}.password-wrap input{width:100%;padding-left:76px!important}.password-toggle{position:absolute;left:8px;top:50%;transform:translateY(-50%);border:0;background:#F1E4D6;color:#70483D;border-radius:8px;padding:6px 10px;font:600 11px "IBM Plex Sans Arabic";cursor:pointer}.password-toggle:focus-visible{outline:2px solid #875C4D;outline-offset:2px}.staff-note{background:#FBF5ED;border:1px solid #E8D9C9;color:#70483D;border-radius:12px;padding:12px 14px;font-size:11px;line-height:1.9;margin:14px 0;text-align:right}</style></head>
 <body><main class="card">
 <div class="mark">SM</div><div class="brand">Suad Muhtaseb<small>مساحة دعم اجتماعي</small></div>
 <div class="eyebrow">إنشاء حساب آمن</div><h1>أهلاً بك، لنبدأ</h1>
 <p>أنشئ حسابك لتتمكن من العودة إلى حسابك ومتابعة خدماتك لاحقًا. بعد التسجيل سنرسل رسالة لتأكيد بريدك الإلكتروني.</p>
+<div class="staff-note"><strong>تنبيه:</strong> هذه الصفحة مخصصة لإنشاء حساب مستخدم للزوار. صلاحيات فريق المنصة، مثل المالك التقني أو المختصة المهنية، تُمنح بشكل منفصل من إدارة النظام ولا يمكن اختيارها من نموذج التسجيل. إذا كنت ضمن فريق المنصة، استخدم حسابك المخصص.</div>
 <form id="registerForm">
 <div class="field"><label for="fullName">الاسم الذي تفضّل أن نناديك به</label><input id="fullName" autocomplete="name" maxlength="100" required placeholder="الاسم"></div>
 <div class="field"><label for="email">البريد الإلكتروني</label><input id="email" type="email" autocomplete="email" required placeholder="name@example.com"></div>
-<div class="field"><label for="password">كلمة المرور</label><input id="password" type="password" autocomplete="new-password" minlength="10" required placeholder="10 أحرف على الأقل"></div>
-<div class="field"><label for="confirmPassword">تأكيد كلمة المرور</label><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" required placeholder="أعد كتابة كلمة المرور"></div>
+<div class="field"><label for="password">كلمة المرور</label><div class="password-wrap"><input id="password" type="password" autocomplete="new-password" minlength="10" required placeholder="10 أحرف على الأقل"><button class="password-toggle" type="button" data-toggle-password="password" aria-label="إظهار كلمة المرور" aria-pressed="false">إظهار</button></div></div>
+<div class="field"><label for="confirmPassword">تأكيد كلمة المرور</label><div class="password-wrap"><input id="confirmPassword" type="password" autocomplete="new-password" minlength="10" required placeholder="أعد كتابة كلمة المرور"><button class="password-toggle" type="button" data-toggle-password="confirmPassword" aria-label="إظهار كلمة المرور" aria-pressed="false">إظهار</button></div></div>
 <label class="check"><input id="consent" type="checkbox" required><span>قرأت <a href="privacy.html">سياسة الخصوصية</a> و<a href="terms.html">شروط الاستخدام</a> وأوافق على إنشاء حساب. لن أُدخل في التسجيل تفاصيل طبية أو نفسية حساسة.</span></label>
 <button class="btn" id="submitBtn" type="submit">إنشاء الحساب</button>
 </form>
@@ -27,6 +28,17 @@
 </main>
 <script type="module">
 import {supabase,siteUrl,showNotice,friendlyAuthError} from "./auth.js";
+document.querySelectorAll("[data-toggle-password]").forEach(button=>{
+ const input=document.getElementById(button.dataset.togglePassword);
+ button.addEventListener("click",()=>{
+  const showing=input.type==="password";
+  input.type=showing?"text":"password";
+  button.textContent=showing?"إخفاء":"إظهار";
+  button.setAttribute("aria-label",showing?"إخفاء كلمة المرور":"إظهار كلمة المرور");
+  button.setAttribute("aria-pressed",String(showing));
+ });
+});
+
 const form=document.getElementById("registerForm"),btn=document.getElementById("submitBtn"),notice=document.getElementById("notice");
 form.addEventListener("submit",async e=>{
  e.preventDefault();
