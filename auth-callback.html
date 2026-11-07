@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#70483D">
+<title>Suad Muhtaseb | الحساب</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#70483D;--plum2:#875C4D;--sand:#F1E4D6;--cream:#FCF8F1;--ink:#44352F;--muted:#7D6A5E;--line:#E8D9C9}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--cream);color:var(--ink);font-family:"IBM Plex Sans Arabic",sans-serif;display:grid;place-items:center;padding:22px}.card{width:min(100%,520px);background:#fff;border:1px solid var(--line);border-radius:23px;padding:clamp(22px,5vw,36px);box-shadow:0 22px 70px #70483D12}.mark{width:54px;height:54px;border-radius:17px;background:var(--sand);color:var(--plum);display:grid;place-items:center;margin:0 auto 15px;font:700 20px Alexandria}.brand{text-align:center;color:var(--plum);font:700 12px Alexandria}.brand small{display:block;font:12px "IBM Plex Sans Arabic";color:var(--muted);margin-top:4px}.eyebrow{text-align:center;color:var(--plum2);font-size:12px;font-weight:700;margin-top:20px}h1{font:700 25px/1.5 Alexandria;color:var(--plum);text-align:center;margin:8px 0}p{color:var(--muted);font-size:13px;line-height:1.9;text-align:center}.field{display:flex;flex-direction:column;gap:6px;text-align:right;margin:13px 0}.field label{font-size:12px;font-weight:600}.field input{width:100%;border:1px solid var(--line);border-radius:11px;padding:12px;background:#fffdfa;color:var(--ink);font:14px "IBM Plex Sans Arabic";outline:none}.field input:focus{border-color:var(--plum2);box-shadow:0 0 0 3px #F1E4D6}.check{display:flex;gap:9px;align-items:flex-start;font-size:11px;color:var(--muted);line-height:1.8;margin:14px 0}.check input{margin-top:5px;accent-color:var(--plum)}.btn{width:100%;border:1px solid var(--plum);background:var(--plum);color:#fff;padding:12px 18px;border-radius:11px;font:700 13px "IBM Plex Sans Arabic";cursor:pointer;margin-top:8px}.btn:disabled{opacity:.55;cursor:wait}.btn.secondary{background:transparent;color:var(--plum)}.links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:18px;font-size:12px}.links a{color:var(--plum);text-decoration:none}.notice{display:none;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:#FBF5ED;color:var(--plum);font-size:12px;line-height:1.8;margin:16px 0;text-align:right;overflow-wrap:anywhere}.notice.error{background:#FFF2F0;border-color:#E9C8C3;color:#8A3931}.notice.success{background:#F0F6EF;border-color:#D4E4D1;color:#365B3D}.muted{font-size:11px;margin-top:20px}.hidden{display:none!important}.userbox{background:#FBF5ED;border:1px solid var(--line);border-radius:13px;padding:14px;text-align:center;overflow-wrap:anywhere;margin:18px 0}.userbox strong{color:var(--plum);font-size:13px}
+</style></head>
+<body><main class="card"><div class="mark">SM</div><div class="brand">Suad Muhtaseb<small>تأكيد الحساب</small></div><div class="eyebrow">التحقق من البريد الإلكتروني</div><h1>لحظة واحدة...</h1><p>نتحقق من رابط التأكيد ونجهّز حسابك.</p><div id="notice" class="notice" style="display:block" role="status">جارٍ التحقق من الجلسة...</div><div class="links"><a href="login.html">الانتقال لتسجيل الدخول</a><a href="index.html">الرئيسية</a></div></main>
+<script type="module">
+import {supabase,showNotice} from "./auth.js";
+const notice=document.getElementById("notice");
+const {data,error}=await supabase.auth.getSession();
+if(error){showNotice(notice,"تعذر التحقق من الرابط. قد يكون منتهي الصلاحية أو مستخدمًا سابقًا. اطلب رسالة تأكيد جديدة أو سجّل الدخول.","error");}
+else if(data.session){showNotice(notice,"تم تأكيد بريدك الإلكتروني وتفعيل حسابك بنجاح. سيتم تحويلك إلى حسابك.","success");setTimeout(()=>location.replace("account.html"),900);}
+else{showNotice(notice,"لم نعثر على جلسة نشطة. افتح رابط التأكيد من أحدث رسالة وصلتك، أو اطلب رسالة جديدة.","error");}
+</script></body></html>
