@@ -23,7 +23,7 @@
 <div class="links"><a href="register.html">إنشاء حساب جديد</a><a href="index.html">العودة للرئيسية</a></div>
 </main>
 <script type="module">
-import {supabase,siteUrl,showNotice,friendlyAuthError} from "./auth.js";
+import {supabase,showNotice,friendlyAuthError} from "./auth.js";
 document.querySelectorAll("[data-toggle-password]").forEach(button=>{
  const input=document.getElementById(button.dataset.togglePassword);
  button.addEventListener("click",()=>{
@@ -53,7 +53,7 @@ document.getElementById("resetForm").addEventListener("submit",async e=>{
  e.preventDefault();const btn=document.getElementById("resetBtn"),email=document.getElementById("resetEmail").value.trim().toLowerCase();
  if(!email){showNotice(notice,"أدخل البريد الإلكتروني أولًا.","error");return;}
  btn.disabled=true;btn.textContent="جارٍ الإرسال...";
- const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:siteUrl("reset-password.html")});
+ const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:"https://waleedfouleh-source.github.io/Suad_muhtaseb/reset-password.html"});
  btn.disabled=false;btn.textContent="إرسال رابط إعادة تعيين كلمة المرور";
  if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
  showNotice(notice,"إذا كان البريد مسجّلًا، ستصلك رسالة تحتوي رابطًا آمنًا لإعادة تعيين كلمة المرور. افحص صندوق الرسائل غير المرغوب فيها أيضًا.","success");
