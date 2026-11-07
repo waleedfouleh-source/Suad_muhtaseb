@@ -33,7 +33,7 @@ loginForm.addEventListener("submit",async e=>{
  if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
  if(data.session){
   const requested=new URLSearchParams(location.search).get("next");
-  const safeNext=requested && /^[a-z0-9-]+\\.html$/i.test(requested) ? requested : "account.html";
+  const safeNext=requested && /^[a-z0-9-]+\.html$/i.test(requested) ? requested : "account.html";
   showNotice(notice,"تم تسجيل الدخول بنجاح.","success");
   setTimeout(()=>location.replace(safeNext),500);
  }
