@@ -31,7 +31,12 @@ loginForm.addEventListener("submit",async e=>{
  const {data,error}=await supabase.auth.signInWithPassword({email,password});
  loginBtn.disabled=false;loginBtn.textContent="تسجيل الدخول";
  if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
- if(data.session){showNotice(notice,"تم تسجيل الدخول بنجاح.","success");setTimeout(()=>location.replace("account.html"),500);}
+ if(data.session){
+  const requested=new URLSearchParams(location.search).get("next");
+  const safeNext=requested && /^[a-z0-9-]+\\.html$/i.test(requested) ? requested : "account.html";
+  showNotice(notice,"تم تسجيل الدخول بنجاح.","success");
+  setTimeout(()=>location.replace(safeNext),500);
+ }
 });
 document.getElementById("resetForm").addEventListener("submit",async e=>{
  e.preventDefault();const btn=document.getElementById("resetBtn"),email=document.getElementById("resetEmail").value.trim().toLowerCase();
