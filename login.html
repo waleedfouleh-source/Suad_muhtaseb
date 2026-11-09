@@ -37,16 +37,23 @@ document.querySelectorAll("[data-toggle-password]").forEach(button=>{
 
 const notice=document.getElementById("notice"),loginForm=document.getElementById("loginForm"),loginBtn=document.getElementById("loginBtn");
 loginForm.addEventListener("submit",async e=>{
- e.preventDefault();loginBtn.disabled=true;loginBtn.textContent="جارٍ التحقق...";
- const email=document.getElementById("email").value.trim().toLowerCase(),password=document.getElementById("password").value;
- const {data,error}=await supabase.auth.signInWithPassword({email,password});
- loginBtn.disabled=false;loginBtn.textContent="تسجيل الدخول";
- if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
- if(data.session){
+ e.preventDefault();
+ if(loginBtn.disabled)return;
+ loginBtn.disabled=true;loginBtn.textContent="جارٍ التحقق...";
+ const email=document.getElementById("email").value.trim().toLowerCase();
+ const password=document.getElementById("password").value;
+ try{
+  const {data,error}=await supabase.auth.signInWithPassword({email,password});
+  if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
+  if(!data?.session){showNotice(notice,"لم يتم إنشاء جلسة دخول. حاول مرة أخرى، وإذا استمرت المشكلة تواصل مع إدارة المنصة.","error");return;}
   const requested=new URLSearchParams(location.search).get("next");
   const safeNext=requested && /^[a-z0-9-]+\.html$/i.test(requested) ? requested : "account.html";
   showNotice(notice,"تم تسجيل الدخول بنجاح.","success");
   setTimeout(()=>location.replace(safeNext),500);
+ }catch(error){
+  showNotice(notice,friendlyAuthError(error),"error");
+ }finally{
+  loginBtn.disabled=false;loginBtn.textContent="تسجيل الدخول";
  }
 });
 document.getElementById("resetForm").addEventListener("submit",async e=>{
