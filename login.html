@@ -60,9 +60,14 @@ document.getElementById("resetForm").addEventListener("submit",async e=>{
  e.preventDefault();const btn=document.getElementById("resetBtn"),email=document.getElementById("resetEmail").value.trim().toLowerCase();
  if(!email){showNotice(notice,"أدخل البريد الإلكتروني أولًا.","error");return;}
  btn.disabled=true;btn.textContent="جارٍ الإرسال...";
- const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:siteUrl("reset-password.html")});
- btn.disabled=false;btn.textContent="إرسال رابط إعادة تعيين كلمة المرور";
- if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
- showNotice(notice,"إذا كان البريد مسجّلًا، ستصلك رسالة تحتوي رابطًا آمنًا لإعادة تعيين كلمة المرور. افحص صندوق الرسائل غير المرغوب فيها أيضًا.","success");
+ try{
+  const {error}=await supabase.auth.resetPasswordForEmail(email,{redirectTo:siteUrl("reset-password.html")});
+  if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
+  showNotice(notice,"إذا كان البريد مسجّلًا، ستصلك رسالة تحتوي رابطًا آمنًا لإعادة تعيين كلمة المرور. افحص صندوق الرسائل غير المرغوب فيها أيضًا.","success");
+ }catch(error){
+  showNotice(notice,friendlyAuthError(error),"error");
+ }finally{
+  btn.disabled=false;btn.textContent="إرسال رابط إعادة تعيين كلمة المرور";
+ }
 });
 </script></body></html>
