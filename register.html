@@ -49,10 +49,15 @@ form.addEventListener("submit",async e=>{
  if(password!==confirm){showNotice(notice,"كلمتا المرور غير متطابقتين.","error");return;}
  if(password.length<10){showNotice(notice,"استخدم كلمة مرور لا تقل عن 10 أحرف.","error");return;}
  btn.disabled=true;btn.textContent="جارٍ إنشاء الحساب...";
- const {data,error}=await supabase.auth.signUp({email,password,options:{data:{full_name:fullName},emailRedirectTo:siteUrl("auth-callback.html")}});
- btn.disabled=false;btn.textContent="إنشاء الحساب";
- if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
- if(data.session){showNotice(notice,"تم إنشاء حسابك وتسجيل دخولك بنجاح. سيتم تحويلك الآن.","success");setTimeout(()=>location.replace("account.html"),900);}
- else{form.classList.add("hidden");showNotice(notice,"تم استلام طلب التسجيل. افتح رسالة التأكيد التي أرسلناها إلى بريدك الإلكتروني، واضغط رابط التأكيد لإكمال إنشاء الحساب. إذا لم تجدها، افحص مجلد الرسائل غير المرغوب فيها.","success");}
+ try{
+  const {data,error}=await supabase.auth.signUp({email,password,options:{data:{full_name:fullName},emailRedirectTo:siteUrl("auth-callback.html")}});
+  if(error){showNotice(notice,friendlyAuthError(error),"error");return;}
+  if(data.session){showNotice(notice,"تم إنشاء حسابك وتسجيل دخولك بنجاح. سيتم تحويلك الآن.","success");setTimeout(()=>location.replace("account.html"),900);}
+  else{form.classList.add("hidden");showNotice(notice,"تم استلام طلب التسجيل. افتح رسالة التأكيد التي أرسلناها إلى بريدك الإلكتروني، واضغط رابط التأكيد لإكمال إنشاء الحساب. إذا لم تجدها، افحص مجلد الرسائل غير المرغوب فيها.","success");}
+ }catch(error){
+  showNotice(notice,friendlyAuthError(error),"error");
+ }finally{
+  btn.disabled=false;btn.textContent="إنشاء الحساب";
+ }
 });
 </script></body></html>
